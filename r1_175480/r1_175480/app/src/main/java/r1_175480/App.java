@@ -3,6 +3,8 @@
  */
 package r1_175480;
 
+import java.awt.event.KeyListener;
+import javax.swing.JTextField;
 import ws3dproxy.CommandExecException;
 import ws3dproxy.WS3DProxy;
 import ws3dproxy.model.Creature;
@@ -40,7 +42,12 @@ public class App {
         TecladoJoystick tecladoListener = new TecladoJoystick(c);
         
         GuiControles interfaceGrafica = new GuiControles();
-        interfaceGrafica.addKeyListener(tecladoListener);
+        
+        JTextField textField = new JTextField();
+        textField.addKeyListener(new TecladoJoystick(c));
+        interfaceGrafica.add(textField);
+        
+//        interfaceGrafica.addKeyListener(tecladoListener);
         interfaceGrafica.setVisible(true);
         
         System.out.println("Ouvindo teclado");
