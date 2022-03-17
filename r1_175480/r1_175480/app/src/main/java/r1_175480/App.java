@@ -3,7 +3,6 @@
  */
 package r1_175480;
 
-import java.awt.event.KeyListener;
 import javax.swing.JTextField;
 import ws3dproxy.CommandExecException;
 import ws3dproxy.WS3DProxy;
@@ -12,48 +11,53 @@ import ws3dproxy.model.World;
 import ws3dproxy.model.WorldPoint;
 
 public class App {
+
     public String getGreeting() {
-        return "Hello World!";
+        return "Tarefa R1. RA: 175480, Patrick Ferreira.";
     }
 
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
-        
+
         WS3DProxy proxy = new WS3DProxy();
         Creature c = null;
         World w = null;
-        try {   
-             w = World.getInstance();
-             w.reset();
-             World.createFood(0, 350, 75);
-             World.createFood(0, 100, 220);
-             World.createFood(0, 250, 210);
-             c = proxy.createCreature(100,450,0);
-             c.start();
-             WorldPoint position = c.getPosition();
-             double pitch = c.getPitch();
-             double fuel = c.getFuel();
-             c.moveto(2, 100, 200);
-            } catch (CommandExecException e) {
-             System.out.println("Erro capturado"); 
-            }
-        
+        try {
+            w = World.getInstance();
+            w.reset();
+            World.createFood(0, 350, 75);
+            World.createFood(0, 100, 220);
+            World.createFood(0, 250, 210);
+            c = proxy.createCreature(100, 450, 0);
+            c.start();
+            WorldPoint position = c.getPosition();
+            double pitch = c.getPitch();
+            double fuel = c.getFuel();
+            c.moveto(2, 100, 200);
+        } catch (CommandExecException e) {
+            System.out.println("Erro capturado");
+        }
+
         System.out.println("Começando a ouvir teclado");
-        
+
+        /**
+         * As principais funções deste codigo sao a presenca de uma GUI e a
+         * controlabilidade do robo por teclado. As duas classes bases para
+         * estas funcoes sao criadas abaixo.
+         */
         TecladoJoystick tecladoListener = new TecladoJoystick(c);
-        
         GuiControles interfaceGrafica = new GuiControles(w);
-        
+
+        // TextField que ouvira o teclado
         JTextField textField = new JTextField();
+        // Referenciamos nosso listener de teclado
         textField.addKeyListener(new TecladoJoystick(c));
+        // Adicionamos este textfield para a GUI
         interfaceGrafica.add(textField);
-        
-//        interfaceGrafica.addKeyListener(tecladoListener);
+
+        // interfaceGrafica.addKeyListener(tecladoListener);
         interfaceGrafica.setVisible(true);
-        
+
         System.out.println("Ouvindo teclado");
-        
-//        while(true);
-        
     }
 }

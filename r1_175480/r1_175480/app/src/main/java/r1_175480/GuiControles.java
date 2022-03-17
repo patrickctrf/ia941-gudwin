@@ -15,12 +15,12 @@ import ws3dproxy.model.World;
  */
 public class GuiControles extends javax.swing.JFrame {
 
-    public World w = null;
+    public World w;
 
+    private double coordX;      //coordenada X selecionada na interface
+    private double coordY;      //coordenada Y selecionada na interface
     private int itemjListCores; //item selecionado na lista de cores
-    private int itemjListTipoDeComida;  //item sel
-    private double coordX;
-    private double coordY;
+    private int itemjListTipoDeComida;  //item selecionado na lista de comidas.
 
     /**
      * Creates new form gui_controles
@@ -198,17 +198,19 @@ public class GuiControles extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonCriarJoiaActionPerformed
 
-
+    //Metodo que recebe o evento de no item selecionado na lista de cores
     private void jListCoresValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListCoresValueChanged
         // TODO add your handling code here:
         this.itemjListCores = this.jListCores.getSelectedIndex();
     }//GEN-LAST:event_jListCoresValueChanged
-
+    
+    //Chamada de evento para nova coordenada X setada.
     private void jTextXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextXActionPerformed
         // TODO add your handling code here:
         this.coordX = Double.parseDouble(this.jTextX.getText());
     }//GEN-LAST:event_jTextXActionPerformed
 
+    //Chamada de evento para nova coordenada Y setada.
     private void jTextYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextYActionPerformed
         // TODO add your handling code here:
         this.coordY = Double.parseDouble(this.jTextY.getText());
