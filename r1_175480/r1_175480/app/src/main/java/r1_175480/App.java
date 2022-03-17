@@ -21,8 +21,9 @@ public class App {
         
         WS3DProxy proxy = new WS3DProxy();
         Creature c = null;
+        World w = null;
         try {   
-             World w = World.getInstance();
+             w = World.getInstance();
              w.reset();
              World.createFood(0, 350, 75);
              World.createFood(0, 100, 220);
@@ -41,7 +42,7 @@ public class App {
         
         TecladoJoystick tecladoListener = new TecladoJoystick(c);
         
-        GuiControles interfaceGrafica = new GuiControles();
+        GuiControles interfaceGrafica = new GuiControles(w);
         
         JTextField textField = new JTextField();
         textField.addKeyListener(new TecladoJoystick(c));
