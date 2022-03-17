@@ -14,14 +14,14 @@ import ws3dproxy.model.World;
  * @author patrickctrf
  */
 public class GuiControles extends javax.swing.JFrame {
-    
+
     public World w = null;
-    
-    private int itemjListCores;
-    private int itemjListTipoDeComida;
+
+    private int itemjListCores; //item selecionado na lista de cores
+    private int itemjListTipoDeComida;  //item sel
     private double coordX;
     private double coordY;
-    
+
     /**
      * Creates new form gui_controles
      */
@@ -171,7 +171,7 @@ public class GuiControles extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     // Metodo chamado quando o usuario clica no botao "Criar Comida"
     private void jButtonCriarComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCriarComidaActionPerformed
         try {
@@ -198,7 +198,7 @@ public class GuiControles extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonCriarJoiaActionPerformed
 
-    
+
     private void jListCoresValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListCoresValueChanged
         // TODO add your handling code here:
         this.itemjListCores = this.jListCores.getSelectedIndex();
