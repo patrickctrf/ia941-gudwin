@@ -4,9 +4,13 @@
  */
 package r1_175480;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import ws3dproxy.CommandExecException;
+import ws3dproxy.model.Creature;
+import ws3dproxy.model.Leaflet;
+import ws3dproxy.model.Thing;
 import ws3dproxy.model.World;
 
 /**
@@ -16,6 +20,7 @@ import ws3dproxy.model.World;
 public class GuiControles extends javax.swing.JFrame {
 
     public World w;
+    public Creature c;
 
     private double coordX;      //coordenada X selecionada na interface
     private double coordY;      //coordenada Y selecionada na interface
@@ -25,12 +30,13 @@ public class GuiControles extends javax.swing.JFrame {
     /**
      * Creates new form gui_controles
      */
-    public GuiControles(World w) {
+    public GuiControles(World w, Creature c) {
         this.coordX = 0;
         this.coordY = 0;
         this.itemjListTipoDeComida = 0;
         this.itemjListCores = 0;
         this.w = w;
+        this.c = c;
         initComponents();
     }
 
@@ -55,10 +61,13 @@ public class GuiControles extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
+        jButtonComeOuGuarda = new javax.swing.JButton();
+        jButtonEntregarLeaflet = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButtonCriarComida.setText("Criar Comida");
+        jButtonCriarComida.setFocusable(false);
         jButtonCriarComida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCriarComidaActionPerformed(evt);
@@ -70,6 +79,7 @@ public class GuiControles extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        jListTipoDeComida.setFocusable(false);
         jListTipoDeComida.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 jListTipoDeComidaValueChanged(evt);
@@ -82,6 +92,7 @@ public class GuiControles extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        jListCores.setFocusable(false);
         jListCores.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 jListCoresValueChanged(evt);
@@ -90,6 +101,7 @@ public class GuiControles extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jListCores);
 
         jButtonCriarJoia.setText("Criar Joia");
+        jButtonCriarJoia.setFocusable(false);
         jButtonCriarJoia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCriarJoiaActionPerformed(evt);
@@ -97,6 +109,7 @@ public class GuiControles extends javax.swing.JFrame {
         });
 
         jTextX.setText("0.0");
+        jTextX.setFocusable(false);
         jTextX.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextXActionPerformed(evt);
@@ -104,6 +117,7 @@ public class GuiControles extends javax.swing.JFrame {
         });
 
         jTextY.setText("0.0");
+        jTextY.setFocusable(false);
         jTextY.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextYActionPerformed(evt);
@@ -114,49 +128,80 @@ public class GuiControles extends javax.swing.JFrame {
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jTextArea1.setText(" Coordenada X");
+        jTextArea1.setFocusable(false);
         jScrollPane3.setViewportView(jTextArea1);
 
         jTextArea2.setEditable(false);
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
         jTextArea2.setText("Coordenada Y");
+        jTextArea2.setFocusable(false);
         jScrollPane4.setViewportView(jTextArea2);
+
+        jButtonComeOuGuarda.setText("Comer ou Guardar");
+        jButtonComeOuGuarda.setFocusable(false);
+        jButtonComeOuGuarda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonComeOuGuardaActionPerformed(evt);
+            }
+        });
+
+        jButtonEntregarLeaflet.setText("Entrega Leaflet");
+        jButtonEntregarLeaflet.setFocusable(false);
+        jButtonEntregarLeaflet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEntregarLeafletActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jButtonCriarComida)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonCriarJoia)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jButtonCriarComida)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonCriarJoia)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(186, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButtonComeOuGuarda)
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButtonEntregarLeaflet)
+                        .addGap(31, 31, 31))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonCriarJoia)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonCriarComida))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonCriarJoia)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonCriarComida)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addComponent(jButtonComeOuGuarda)
+                        .addGap(39, 39, 39)
+                        .addComponent(jButtonEntregarLeaflet)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -203,7 +248,7 @@ public class GuiControles extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.itemjListCores = this.jListCores.getSelectedIndex();
     }//GEN-LAST:event_jListCoresValueChanged
-    
+
     //Chamada de evento para nova coordenada X setada.
     private void jTextXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextXActionPerformed
         // TODO add your handling code here:
@@ -216,9 +261,44 @@ public class GuiControles extends javax.swing.JFrame {
         this.coordY = Double.parseDouble(this.jTextY.getText());
     }//GEN-LAST:event_jTextYActionPerformed
 
+    private void jButtonEntregarLeafletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEntregarLeafletActionPerformed
+        try {
+            // TODO add your handling code here:
+            Leaflet leafletExtraido = c.getLeaflets().get(0);
+            c.deliverLeaflet("" + leafletExtraido.getID());
+        } catch (CommandExecException ex) {
+            System.out.println("Nao foi possivel entregar LeafLet");
+        }
+    }//GEN-LAST:event_jButtonEntregarLeafletActionPerformed
+
+    private void jButtonComeOuGuardaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonComeOuGuardaActionPerformed
+        // TODO add your handling code here:
+        c.updateState();
+        List<Thing> thingsInVisionList = c.getThingsInVision();
+        String thingsNames = c.getThingsNames();
+
+        if (!thingsInVisionList.isEmpty()) {
+            try {
+                this.c.eatIt(thingsInVisionList.get(0).getName());
+                System.out.println("Objeto foi comido.");
+            } catch (CommandExecException ex) {
+                System.out.println("Não foj possivel comer o objeto.");
+            }
+
+            try {
+                this.c.putInSack(thingsInVisionList.get(0).getName());
+                System.out.println("Objeto guardado na sacola.");
+            } catch (CommandExecException ex) {
+                System.out.println("Nao foi possivel colocar na sacola.");
+            }
+        }
+    }//GEN-LAST:event_jButtonComeOuGuardaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonComeOuGuarda;
     private javax.swing.JButton jButtonCriarComida;
     private javax.swing.JButton jButtonCriarJoia;
+    private javax.swing.JButton jButtonEntregarLeaflet;
     private javax.swing.JList<String> jListCores;
     private javax.swing.JList<String> jListTipoDeComida;
     private javax.swing.JScrollPane jScrollPane1;

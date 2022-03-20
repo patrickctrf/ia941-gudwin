@@ -3,6 +3,8 @@
  */
 package r1_175480;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTextField;
 import ws3dproxy.CommandExecException;
 import ws3dproxy.WS3DProxy;
@@ -46,17 +48,25 @@ public class App {
          * estas funcoes sao criadas abaixo.
          */
         TecladoJoystick tecladoListener = new TecladoJoystick(c);
-        GuiControles interfaceGrafica = new GuiControles(w);
+        GuiControles interfaceGrafica = new GuiControles(w, c);
 
-        // TextField que ouvira o teclado
+        // TextField que permite capturar o teclado
         JTextField textField = new JTextField();
-        // Referenciamos nosso listener de teclado
         textField.addKeyListener(new TecladoJoystick(c));
-        // Adicionamos este textfield para a GUI
+        textField.setFocusable(true);
+        textField.requestFocusInWindow();
         interfaceGrafica.add(textField);
 
         // interfaceGrafica.addKeyListener(tecladoListener);
         interfaceGrafica.setVisible(true);
+        
+        try {
+            c.genLeaflet();
+        } catch (CommandExecException ex) {
+            System.out.println("Erro ao gerar LeafLet");
+        }
+        
+        System.out.println("Bag: " + c.getBag());
 
         System.out.println("Ouvindo teclado");
     }
