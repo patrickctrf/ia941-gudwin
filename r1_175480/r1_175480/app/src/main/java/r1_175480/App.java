@@ -3,12 +3,16 @@
  */
 package r1_175480;
 
+import static java.lang.Thread.sleep;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTextField;
 import ws3dproxy.CommandExecException;
 import ws3dproxy.WS3DProxy;
+import ws3dproxy.model.Bag;
 import ws3dproxy.model.Creature;
+import ws3dproxy.model.Leaflet;
 import ws3dproxy.model.World;
 import ws3dproxy.model.WorldPoint;
 
@@ -41,6 +45,9 @@ public class App {
         }
 
         System.out.println("Começando a ouvir teclado");
+        
+        // TextField que permite capturar o teclado
+        JTextField textField = new JTextField();
 
         /**
          * As principais funções deste codigo sao a presenca de uma GUI e a
@@ -48,10 +55,10 @@ public class App {
          * estas funcoes sao criadas abaixo.
          */
         TecladoJoystick tecladoListener = new TecladoJoystick(c);
-        GuiControles interfaceGrafica = new GuiControles(w, c);
+        GuiControles interfaceGrafica = new GuiControles(w, c, textField);
 
-        // TextField que permite capturar o teclado
-        JTextField textField = new JTextField();
+        // Capturando focus do teclado.
+        textField.setBounds(10, 100, 20, 30);  
         textField.addKeyListener(new TecladoJoystick(c));
         textField.setFocusable(true);
         textField.requestFocusInWindow();
@@ -60,14 +67,21 @@ public class App {
         // interfaceGrafica.addKeyListener(tecladoListener);
         interfaceGrafica.setVisible(true);
         
+        c.updateState();
         try {
             c.genLeaflet();
         } catch (CommandExecException ex) {
             System.out.println("Erro ao gerar LeafLet");
         }
         
+        c.updateState();
+        Bag bag = c.getBag();
+        List<Leaflet> lf = c.getLeaflets();
+        
         System.out.println("Bag: " + c.getBag());
+        System.out.println("Leaflets: " + c.getLeaflets());
 
         System.out.println("Ouvindo teclado");
+        
     }
 }

@@ -7,6 +7,7 @@ package r1_175480;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTextField;
 import ws3dproxy.CommandExecException;
 import ws3dproxy.model.Creature;
 import ws3dproxy.model.Leaflet;
@@ -21,6 +22,7 @@ public class GuiControles extends javax.swing.JFrame {
 
     public World w;
     public Creature c;
+    private JTextField textField;   // texField que funciona delistener do teclado
 
     private double coordX;      //coordenada X selecionada na interface
     private double coordY;      //coordenada Y selecionada na interface
@@ -30,13 +32,14 @@ public class GuiControles extends javax.swing.JFrame {
     /**
      * Creates new form gui_controles
      */
-    public GuiControles(World w, Creature c) {
+    public GuiControles(World w, Creature c, JTextField textField) {
         this.coordX = 0;
         this.coordY = 0;
         this.itemjListTipoDeComida = 0;
         this.itemjListCores = 0;
         this.w = w;
         this.c = c;
+        this.textField = textField;
         initComponents();
     }
 
@@ -63,6 +66,8 @@ public class GuiControles extends javax.swing.JFrame {
         jTextArea2 = new javax.swing.JTextArea();
         jButtonComeOuGuarda = new javax.swing.JButton();
         jButtonEntregarLeaflet = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -109,7 +114,6 @@ public class GuiControles extends javax.swing.JFrame {
         });
 
         jTextX.setText("0.0");
-        jTextX.setFocusable(false);
         jTextX.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextXActionPerformed(evt);
@@ -117,7 +121,6 @@ public class GuiControles extends javax.swing.JFrame {
         });
 
         jTextY.setText("0.0");
-        jTextY.setFocusable(false);
         jTextY.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextYActionPerformed(evt);
@@ -154,20 +157,30 @@ public class GuiControles extends javax.swing.JFrame {
             }
         });
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "", "LF 1", "LF 2", "LF 3"
+            }
+        ));
+        jScrollPane5.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+        }
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(jButtonCriarComida)
@@ -185,6 +198,19 @@ public class GuiControles extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButtonEntregarLeaflet)
                         .addGap(31, 31, 31))))
+            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,16 +228,18 @@ public class GuiControles extends javax.swing.JFrame {
                         .addComponent(jButtonComeOuGuarda)
                         .addGap(39, 39, 39)
                         .addComponent(jButtonEntregarLeaflet)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(jTextY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(28, 28, 28))
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jTextX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(280, Short.MAX_VALUE))
         );
 
         pack();
@@ -253,17 +281,21 @@ public class GuiControles extends javax.swing.JFrame {
     private void jTextXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextXActionPerformed
         // TODO add your handling code here:
         this.coordX = Double.parseDouble(this.jTextX.getText());
+        this.textField.requestFocus();
     }//GEN-LAST:event_jTextXActionPerformed
 
     //Chamada de evento para nova coordenada Y setada.
     private void jTextYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextYActionPerformed
         // TODO add your handling code here:
         this.coordY = Double.parseDouble(this.jTextY.getText());
+        this.textField.requestFocus();
     }//GEN-LAST:event_jTextYActionPerformed
 
     private void jButtonEntregarLeafletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEntregarLeafletActionPerformed
+        c.updateState();
         try {
             // TODO add your handling code here:
+            List aux = c.getLeaflets();
             Leaflet leafletExtraido = c.getLeaflets().get(0);
             c.deliverLeaflet("" + leafletExtraido.getID());
         } catch (CommandExecException ex) {
@@ -305,6 +337,8 @@ public class GuiControles extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextX;

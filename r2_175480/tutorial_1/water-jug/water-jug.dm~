@@ -18,7 +18,7 @@ SOAR_ID 15
 ENUMERATION 16 1 empty
 SOAR_ID 17
 ENUMERATION 18 1 pour
-21
+22
 0 io 1
 0 jug 9
 0 name 7
@@ -39,4 +39,5 @@ ENUMERATION 18 1 pour
 13 name 14
 15 empty-jug 9
 15 name 16
+17 jug 9
 17 name 18
