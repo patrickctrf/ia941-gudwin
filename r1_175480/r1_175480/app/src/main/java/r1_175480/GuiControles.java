@@ -52,6 +52,7 @@ public class GuiControles extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jButtonCriarComida = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jListTipoDeComida = new javax.swing.JList<>();
@@ -159,12 +160,12 @@ public class GuiControles extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
+                {"Red", null, null, null},
+                {"Green", null, null, null},
+                {"Blue", null, null, null},
+                {"Yellow", null, null, null},
+                {"Magenta", null, null, null},
+                {"White", null, null, null},
                 {null, null, null, null},
                 {null, null, null, null}
             },
@@ -238,8 +239,8 @@ public class GuiControles extends javax.swing.JFrame {
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jTextX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(280, Short.MAX_VALUE))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(195, Short.MAX_VALUE))
         );
 
         pack();
@@ -291,21 +292,40 @@ public class GuiControles extends javax.swing.JFrame {
         this.textField.requestFocus();
     }//GEN-LAST:event_jTextYActionPerformed
 
+    protected void updateLeafletTable() {
+        List<Leaflet> leaflets = c.getLeaflets();
+        String[] cores = {"Red", "Green", "Blue", "Yellow", "Magenta", "White"};
+        
+        // i comeca em 1 pq pulamos a coluna de titulos.
+        int i = 1, j = 0;
+        for (Leaflet leaflet : leaflets) {
+            j=0;
+            for (String cor : cores) {
+                jTable1.setValueAt(
+                        leaflet.getItems().getOrDefault(cor, new Integer[]{0, 0})[0], j, i);
+                j++;
+            }
+            i++;
+        }
+    }
+
     private void jButtonEntregarLeafletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEntregarLeafletActionPerformed
         c.updateState();
+        updateLeafletTable();
         try {
             // TODO add your handling code here:
-            List aux = c.getLeaflets();
             Leaflet leafletExtraido = c.getLeaflets().get(0);
             c.deliverLeaflet("" + leafletExtraido.getID());
         } catch (CommandExecException ex) {
             System.out.println("Nao foi possivel entregar LeafLet");
         }
+        updateLeafletTable();
     }//GEN-LAST:event_jButtonEntregarLeafletActionPerformed
 
     private void jButtonComeOuGuardaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonComeOuGuardaActionPerformed
         // TODO add your handling code here:
         c.updateState();
+        updateLeafletTable();
         List<Thing> thingsInVisionList = c.getThingsInVision();
         String thingsNames = c.getThingsNames();
 
@@ -324,9 +344,11 @@ public class GuiControles extends javax.swing.JFrame {
                 System.out.println("Nao foi possivel colocar na sacola.");
             }
         }
+        updateLeafletTable();
     }//GEN-LAST:event_jButtonComeOuGuardaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButtonComeOuGuarda;
     private javax.swing.JButton jButtonCriarComida;
     private javax.swing.JButton jButtonCriarJoia;
