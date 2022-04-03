@@ -166,8 +166,8 @@ public class GuiControles extends javax.swing.JFrame {
                 {"Yellow", null, null, null},
                 {"Magenta", null, null, null},
                 {"White", null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {"Completed", null, null, null},
+                {"Value", null, null, null}
             },
             new String [] {
                 "", "LF 1", "LF 2", "LF 3"
@@ -302,9 +302,14 @@ public class GuiControles extends javax.swing.JFrame {
             j=0;
             for (String cor : cores) {
                 jTable1.setValueAt(
-                        leaflet.getItems().getOrDefault(cor, new Integer[]{0, 0})[0], j, i);
+                        leaflet.getItems().getOrDefault(
+                                cor, 
+                                new Integer[]{0, 0})[0], 
+                        j, i);
                 j++;
             }
+            jTable1.setValueAt(leaflet.getSituation() == 1 ? "Yes" : "No", j, i);j++;
+            jTable1.setValueAt(leaflet.getPayment(), j, i);j++;
             i++;
         }
     }

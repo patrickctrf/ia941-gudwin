@@ -268,8 +268,8 @@
                   <Data value="Yellow"/>
                   <Data value="Magenta"/>
                   <Data value="White"/>
-                  <Data value="null"/>
-                  <Data value="null"/>
+                  <Data value="Completed"/>
+                  <Data value="Value"/>
                 </Column>
                 <Column editable="true" title="LF 1" type="java.lang.Object"/>
                 <Column editable="true" title="LF 2" type="java.lang.Object"/>
