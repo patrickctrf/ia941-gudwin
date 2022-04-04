@@ -5,7 +5,7 @@ sp {water-jug*propose*pour
    (<i> ^contents > 0)
    (<j> ^empty > 0)
 -->
-   (<s> ^operator <o> +)
+   (<s> ^operator <o> + =)
    (<o> ^name pour
         ^empty-jug <i>
         ^fill-jug <j>)}
@@ -26,3 +26,34 @@ sp {water-jug*apply*pour*will-empty-empty-jug
         ^contents <icon> -)
    (<j> ^contents (+ <jcon> <icon>)
         ^contents <jcon> -)}
+
+sp {water-jug*apply*pour*will-not-empty-empty-jug
+   (state <s> ^name water-jug
+              ^operator <o>)
+   (<o> ^name pour
+        ^empty-jug <i>
+        ^fill-jug <j>)
+   (<i> ^volume <ivol>
+        ^contents { <icon> > <jempty> })
+   (<j> ^volume <jvol>
+        ^contents <jcon>
+        ^empty <jempty>)
+-->
+   (<i> ^contents (- <icon> <jempty>)
+        ^contents <icon> -)
+   (<j> ^contents <jvol>
+        ^contents <jcon> -)}
+#
+#sp {water-jug*propose*pour*preferencia1
+#   (state <s> ^operator <o1> + ^operator <o2> + )
+#   (<o1> ^name pour)
+#   (<o2> ^name << fill empty >>)
+#-->
+#   (<s> ^operator <o1> > <o2>)}
+#
+#sp {water-jug*propose*pour*preferencia2
+#   (state <s> ^operator <o1> + ^operator <o2> + )
+#   (<o1> ^name pour)
+#   (<o2> ^name pour)
+#-->
+#   (<s> ^operator <o1> = <o2>)}
