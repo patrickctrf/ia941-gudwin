@@ -163,17 +163,17 @@ public class GuiControles extends javax.swing.JFrame {
 
         jTableLeaflet.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Red", null, null, null},
-                {"Green", null, null, null},
-                {"Blue", null, null, null},
-                {"Yellow", null, null, null},
-                {"Magenta", null, null, null},
-                {"White", null, null, null},
-                {"Completed", null, null, null},
-                {"Value", null, null, null}
+                {"Red", null, null, null, null},
+                {"Green", null, null, null, null},
+                {"Blue", null, null, null, null},
+                {"Yellow", null, null, null, null},
+                {"Magenta", null, null, null, null},
+                {"White", null, null, null, null},
+                {"Completed", null, null, null, null},
+                {"Value", null, null, null, null}
             },
             new String [] {
-                "", "LF 1", "LF 2", "LF 3"
+                "", "LF 1", "LF 2", "LF 3", "Coletadas"
             }
         ));
         jScrollPane5.setViewportView(jTableLeaflet);
@@ -227,7 +227,7 @@ public class GuiControles extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -256,9 +256,9 @@ public class GuiControles extends javax.swing.JFrame {
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jTextX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(290, Short.MAX_VALUE))
         );
 
@@ -314,6 +314,8 @@ public class GuiControles extends javax.swing.JFrame {
     protected void updateLeafletTable() {
         List<Leaflet> leaflets = c.getLeaflets();
         String[] cores = {"Red", "Green", "Blue", "Yellow", "Magenta", "White"};
+        int[] totalJoias = {0, 0, 0, 0, 0, 0,};
+        Bag bag = c.updateBag();
 
         // i comeca em 1 pq pulamos a coluna de titulos.
         int i = 1, j = 0;
@@ -325,11 +327,21 @@ public class GuiControles extends javax.swing.JFrame {
                                 cor,
                                 new Integer[]{0, 0})[0],
                         j, i);
+                totalJoias[j] = totalJoias[j] + leaflet.getItems().getOrDefault(cor, new Integer[]{0, 0})[1];
                 j++;
             }
-            jTableLeaflet.setValueAt(leaflet.getSituation() == 1 ? "Yes" : "No", j, i); j++;
-            jTableLeaflet.setValueAt(leaflet.getPayment(), j, i); j++;
+            jTableLeaflet.setValueAt(leaflet.getSituation() == 1 ? "Yes" : "No", j, i);
+            j++;
+            jTableLeaflet.setValueAt(leaflet.getPayment(), j, i);
+            j++;
             i++;
+        }
+
+        j = 0;
+        for (String cor : cores) {
+            jTableLeaflet.setValueAt(bag.getNumberCrystalPerType(cor),
+                    j, i);
+            j++;
         }
     }
 
@@ -337,17 +349,9 @@ public class GuiControles extends javax.swing.JFrame {
         String[] cores = {"Red", "Green", "Blue", "Yellow", "Magenta", "White"};
 
         Bag bag = c.updateBag();
-        
+
         jTableBag.setValueAt(bag.getTotalNumberFood(), 0, 1);
         jTableBag.setValueAt(bag.getTotalNumberCrystals(), 1, 1);
-
-        // i comeca em 1 pq pulamos a coluna de titulos.
-//        int i = 1;
-//            for (String cor : cores) {
-//                jTableLeaflet.setValueAt(,
-//                     i, 1);
-//            i++;
-//        }
     }
 
     private void jButtonEntregarLeafletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEntregarLeafletActionPerformed
