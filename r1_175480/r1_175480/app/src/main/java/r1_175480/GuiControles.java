@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTextField;
 import ws3dproxy.CommandExecException;
+import ws3dproxy.model.Bag;
 import ws3dproxy.model.Creature;
 import ws3dproxy.model.Leaflet;
 import ws3dproxy.model.Thing;
@@ -68,7 +69,9 @@ public class GuiControles extends javax.swing.JFrame {
         jButtonComeOuGuarda = new javax.swing.JButton();
         jButtonEntregarLeaflet = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableLeaflet = new javax.swing.JTable();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTableBag = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -158,7 +161,7 @@ public class GuiControles extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableLeaflet.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Red", null, null, null},
                 {"Green", null, null, null},
@@ -173,10 +176,21 @@ public class GuiControles extends javax.swing.JFrame {
                 "", "LF 1", "LF 2", "LF 3"
             }
         ));
-        jScrollPane5.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
+        jScrollPane5.setViewportView(jTableLeaflet);
+        if (jTableLeaflet.getColumnModel().getColumnCount() > 0) {
+            jTableLeaflet.getColumnModel().getColumn(1).setResizable(false);
         }
+
+        jTableBag.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"totalFood", null},
+                {"totalJewels", null}
+            },
+            new String [] {
+                "BAG", "Qtde Jóias"
+            }
+        ));
+        jScrollPane6.setViewportView(jTableBag);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -191,7 +205,7 @@ public class GuiControles extends javax.swing.JFrame {
                 .addComponent(jButtonCriarJoia)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButtonComeOuGuarda)
@@ -202,7 +216,6 @@ public class GuiControles extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -210,7 +223,11 @@ public class GuiControles extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -239,8 +256,10 @@ public class GuiControles extends javax.swing.JFrame {
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jTextX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(195, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(290, Short.MAX_VALUE))
         );
 
         pack();
@@ -295,28 +314,46 @@ public class GuiControles extends javax.swing.JFrame {
     protected void updateLeafletTable() {
         List<Leaflet> leaflets = c.getLeaflets();
         String[] cores = {"Red", "Green", "Blue", "Yellow", "Magenta", "White"};
-        
+
         // i comeca em 1 pq pulamos a coluna de titulos.
         int i = 1, j = 0;
         for (Leaflet leaflet : leaflets) {
-            j=0;
+            j = 0;
             for (String cor : cores) {
-                jTable1.setValueAt(
+                jTableLeaflet.setValueAt(
                         leaflet.getItems().getOrDefault(
-                                cor, 
-                                new Integer[]{0, 0})[0], 
+                                cor,
+                                new Integer[]{0, 0})[0],
                         j, i);
                 j++;
             }
-            jTable1.setValueAt(leaflet.getSituation() == 1 ? "Yes" : "No", j, i);j++;
-            jTable1.setValueAt(leaflet.getPayment(), j, i);j++;
+            jTableLeaflet.setValueAt(leaflet.getSituation() == 1 ? "Yes" : "No", j, i); j++;
+            jTableLeaflet.setValueAt(leaflet.getPayment(), j, i); j++;
             i++;
         }
+    }
+
+    protected void updateBagTable() {
+        String[] cores = {"Red", "Green", "Blue", "Yellow", "Magenta", "White"};
+
+        Bag bag = c.updateBag();
+        
+        jTableBag.setValueAt(bag.getTotalNumberFood(), 0, 1);
+        jTableBag.setValueAt(bag.getTotalNumberCrystals(), 1, 1);
+
+        // i comeca em 1 pq pulamos a coluna de titulos.
+//        int i = 1;
+//            for (String cor : cores) {
+//                jTableLeaflet.setValueAt(,
+//                     i, 1);
+//            i++;
+//        }
     }
 
     private void jButtonEntregarLeafletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEntregarLeafletActionPerformed
         c.updateState();
         updateLeafletTable();
+        updateBagTable();
         try {
             // TODO add your handling code here:
             Leaflet leafletExtraido = c.getLeaflets().get(0);
@@ -325,12 +362,14 @@ public class GuiControles extends javax.swing.JFrame {
             System.out.println("Nao foi possivel entregar LeafLet");
         }
         updateLeafletTable();
+        updateBagTable();
     }//GEN-LAST:event_jButtonEntregarLeafletActionPerformed
 
     private void jButtonComeOuGuardaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonComeOuGuardaActionPerformed
         // TODO add your handling code here:
         c.updateState();
         updateLeafletTable();
+        updateBagTable();
         List<Thing> thingsInVisionList = c.getThingsInVision();
         String thingsNames = c.getThingsNames();
 
@@ -350,6 +389,7 @@ public class GuiControles extends javax.swing.JFrame {
             }
         }
         updateLeafletTable();
+        updateBagTable();
     }//GEN-LAST:event_jButtonComeOuGuardaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -365,7 +405,9 @@ public class GuiControles extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JTable jTableBag;
+    private javax.swing.JTable jTableLeaflet;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextX;

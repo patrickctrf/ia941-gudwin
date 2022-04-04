@@ -68,10 +68,10 @@ public class App {
         interfaceGrafica.setVisible(true);
 
         c.updateState();
-        Bag bag = c.getBag();
+        Bag bag = c.updateBag();
         List<Leaflet> lf = c.getLeaflets();
 
-        System.out.println("Bag: " + c.getBag());
+        System.out.println("Bag: " + c.updateBag());
         System.out.println("Leaflets: " + c.getLeaflets());
 
         System.out.println("Ouvindo teclado");
@@ -79,6 +79,7 @@ public class App {
         try {
             sleep(5000);
             interfaceGrafica.updateLeafletTable();
+            interfaceGrafica.updateBagTable();
         } catch (InterruptedException ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
