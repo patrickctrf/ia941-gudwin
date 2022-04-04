@@ -72,6 +72,8 @@ public class GuiControles extends javax.swing.JFrame {
         jTableLeaflet = new javax.swing.JTable();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTableBag = new javax.swing.JTable();
+        fuelTitle = new javax.swing.JTextField();
+        fuelValue = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -192,6 +194,20 @@ public class GuiControles extends javax.swing.JFrame {
         ));
         jScrollPane6.setViewportView(jTableBag);
 
+        fuelTitle.setText("Fuel: ");
+        fuelTitle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fuelTitleActionPerformed(evt);
+            }
+        });
+
+        fuelValue.setText("1000.0000");
+        fuelValue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fuelValueActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -223,7 +239,11 @@ public class GuiControles extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(92, 92, 92)
+                        .addComponent(fuelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(fuelValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -251,7 +271,10 @@ public class GuiControles extends javax.swing.JFrame {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(jTextY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jTextY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(fuelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(fuelValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(28, 28, 28))
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jTextX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -382,7 +405,7 @@ public class GuiControles extends javax.swing.JFrame {
                 this.c.eatIt(thingsInVisionList.get(0).getName());
                 System.out.println("Objeto foi comido.");
             } catch (CommandExecException ex) {
-                System.out.println("Não foj possivel comer o objeto.");
+                System.out.println("Não foi possivel comer o objeto.");
             }
 
             try {
@@ -396,8 +419,23 @@ public class GuiControles extends javax.swing.JFrame {
         updateBagTable();
     }//GEN-LAST:event_jButtonComeOuGuardaActionPerformed
 
+    private void fuelTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fuelTitleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fuelTitleActionPerformed
+
+    private void fuelValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fuelValueActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fuelValueActionPerformed
+
+    public void atualizaFuel(){
+        c.updateState();
+        fuelValue.setText("" + c.getFuel()/10);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JTextField fuelTitle;
+    private javax.swing.JTextField fuelValue;
     private javax.swing.JButton jButtonComeOuGuarda;
     private javax.swing.JButton jButtonCriarComida;
     private javax.swing.JButton jButtonCriarJoia;

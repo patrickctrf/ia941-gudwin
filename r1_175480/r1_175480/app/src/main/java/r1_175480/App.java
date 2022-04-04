@@ -83,6 +83,14 @@ public class App {
         } catch (InterruptedException ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
+        while (true) {
+            interfaceGrafica.atualizaFuel();
+            try {
+                sleep(5000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

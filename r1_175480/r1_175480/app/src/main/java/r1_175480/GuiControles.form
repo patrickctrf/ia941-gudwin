@@ -59,6 +59,10 @@
                       <Component id="jScrollPane4" min="-2" pref="129" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jTextY" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
+                      <Component id="fuelTitle" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="fuelValue" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Component id="jScrollPane6" min="-2" pref="162" max="-2" attributes="0"/>
@@ -95,7 +99,11 @@
                   <Component id="jScrollPane3" alignment="0" min="-2" pref="65" max="-2" attributes="0"/>
                   <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="jTextY" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jTextY" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="fuelTitle" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="fuelValue" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jScrollPane4" alignment="0" min="-2" pref="52" max="-2" attributes="0"/>
@@ -359,5 +367,21 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JTextField" name="fuelTitle">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Fuel: "/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fuelTitleActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="fuelValue">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="1000.0000"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fuelValueActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>
