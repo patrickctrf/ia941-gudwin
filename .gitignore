@@ -16,6 +16,7 @@
 *.nar
 *.ear
 # *.zip
+ws3d/build/distributions/ws3d-0.0.1.zip
 *.tar.gz
 *.rar
 

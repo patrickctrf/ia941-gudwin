@@ -335,10 +335,12 @@ public class GuiControles extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextYActionPerformed
 
     protected void updateLeafletTable() {
+        c.updateState();
         List<Leaflet> leaflets = c.getLeaflets();
         String[] cores = {"Red", "Green", "Blue", "Yellow", "Magenta", "White"};
         int[] totalJoias = {0, 0, 0, 0, 0, 0,};
         Bag bag = c.updateBag();
+        c.updateState();
 
         // i comeca em 1 pq pulamos a coluna de titulos.
         int i = 1, j = 0;
@@ -366,18 +368,24 @@ public class GuiControles extends javax.swing.JFrame {
                     j, i);
             j++;
         }
+        c.updateState();
     }
 
     protected void updateBagTable() {
+        c.updateState();
         String[] cores = {"Red", "Green", "Blue", "Yellow", "Magenta", "White"};
 
         Bag bag = c.updateBag();
 
         jTableBag.setValueAt(bag.getTotalNumberFood(), 0, 1);
         jTableBag.setValueAt(bag.getTotalNumberCrystals(), 1, 1);
+        c.updateState();
     }
 
     private void jButtonEntregarLeafletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEntregarLeafletActionPerformed
+        c.updateState();
+        updateLeafletTable();
+        updateBagTable();
         c.updateState();
         updateLeafletTable();
         updateBagTable();
@@ -388,6 +396,10 @@ public class GuiControles extends javax.swing.JFrame {
         } catch (CommandExecException ex) {
             System.out.println("Nao foi possivel entregar LeafLet");
         }
+        c.updateState();
+        updateLeafletTable();
+        updateBagTable();
+        c.updateState();
         updateLeafletTable();
         updateBagTable();
     }//GEN-LAST:event_jButtonEntregarLeafletActionPerformed
@@ -397,6 +409,7 @@ public class GuiControles extends javax.swing.JFrame {
         c.updateState();
         updateLeafletTable();
         updateBagTable();
+        c.updateState();
         List<Thing> thingsInVisionList = c.getThingsInVision();
         String thingsNames = c.getThingsNames();
 
@@ -415,6 +428,10 @@ public class GuiControles extends javax.swing.JFrame {
                 System.out.println("Nao foi possivel colocar na sacola.");
             }
         }
+        c.updateState();
+        updateLeafletTable();
+        updateBagTable();
+        c.updateState();
         updateLeafletTable();
         updateBagTable();
     }//GEN-LAST:event_jButtonComeOuGuardaActionPerformed
@@ -429,7 +446,14 @@ public class GuiControles extends javax.swing.JFrame {
 
     public void atualizaFuel(){
         c.updateState();
+        updateLeafletTable();
+        updateBagTable();
+        
         fuelValue.setText("" + c.getFuel()/10);
+        
+        c.updateState();
+        updateLeafletTable();
+        updateBagTable();
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
