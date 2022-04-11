@@ -1,0 +1,3 @@
+pushd ptk-eater
+source ptk-eater_source.soar
+popd

@@ -1,0 +1,22 @@
+sp {propose*move-north
+   (state <s> ^type state)
+-->
+   (<s> ^operator <o> +)
+   (<o> ^name move-north)}
+
+sp {apply*move-north
+   (state <s> ^operator <o>
+              ^io <io>)
+   (<io> ^output-link <out>)
+   (<o> ^name move-north)
+-->
+   (<out> ^move <move>)
+   (<move> ^direction north)}
+
+sp {apply*move-north*remove-move
+   (state <s> ^operator.name move-north
+              ^io.output-link <out>)
+   (<out> ^move <move>)
+   (<move> ^status complete)
+-->
+   (<out> ^move <move> -)}
