@@ -1,8 +1,3 @@
-############################################################################
-# From Chapter 10 of Soar 8 Tutorial
-#
-# These are the final versions of the rules for the jump and move operator.
-
 sp {initialize*state*directions
    (state <ss> ^type state)
 -->
@@ -50,6 +45,8 @@ sp {elaborate*operator*value
 -->
    (<o> ^value <value>)}
 
+# Decisao
+
 sp {select*compare*best*value
    (state <s> ^operator <o1> +
               ^operator <o2> +)
@@ -58,8 +55,7 @@ sp {select*compare*best*value
 -->
    (<s> ^operator <o1> > <o2>)}
 
-
-## General operator application rules
+# apply
 
 sp {apply*operator*create-action-command
    (state <s> ^operator <o>
